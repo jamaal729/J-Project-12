@@ -1,0 +1,17 @@
+Notes:
+
+The application can be run with the run.bat file (Applies to Windows PC). It starts and connects to the h2 database, then starts bootRun.
+
+Three users have been created. The username, password and role are:
+    "admin", "password", {"ROLE_ADMIN", "ROLE_USER"}
+    "user1", "pass1", "ROLE_USER"
+    "user2", "pass2", "ROLE_USER"
+
+
+Filtering by category can be applied together with the search option,
+ i.e. by ingredient or description.
+
+Search by ingredient requires the full ingredient name, e.g. "white sugar"
+Search by description returns results for any characters contained in the description, e.g. "sugar".
+
+IntelliJ IDEA has a built-in code coverage, which shows a coverage of 65% of methods by the unit tests (91 of 138 methods).

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="template::head(|${recipe.name} - My Recipes|)"></head>
+
+<body>
+
+<nav th:replace="template :: navigation">
+</nav>
+
+<div class="grid-container">
+
+    <div th:replace="template :: chef-logo"></div>
+
+    <div th:replace="template :: flash"></div>
+
+    <div class="grid-100">
+
+        <div class="recipes">
+
+            <div class="grid-100 row controls">
+                <div class="grid-50">
+                    <h2 th:text="${recipe.name}"> Brioche French Toast with Nutella </h2>
+                    <a th:href="@{|/users/${recipe.createdBy.id}|}"><h3 th:text="|by ${recipe.createdBy.username}|">by
+                        user</h3></a>
+                </div>
+                <div class="grid-50" style="margin-top: 15px;">
+                    <div class="flush-right">
+                        <form th:replace="template :: favoritedHeart"></form>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Photo </label>
+                    </p>
+                </div>
+                <div class="grid-40">
+                    <img class="recipe-image" th:src="@{${recipe.imageUrl}}" th:alt="|[${recipe.name}]|"/>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Name </label>
+                    </p>
+                </div>
+                <div class="grid-40">
+                    <p th:text="${recipe.name}">
+                        Brioche French Toast with Nutella
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Description </label>
+                    </p>
+                </div>
+                <div class="grid-40">
+                    <p th:text="${recipe.description}">
+                        Yummmy dessert toast covered in egg wash and topped with nutella and seasonal fruit.
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Category </label>
+                    </p>
+                </div>
+                <div class="grid-30">
+                    <p th:text="${recipe.category.name}">
+                        Dessert
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Prep Time </label>
+                    </p>
+                </div>
+                <div class="grid-20">
+                    <p th:text="|${recipe.prepTime} minutes|">
+                        5 minutes
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Cook Time </label>
+                    </p>
+                </div>
+                <div class="grid-20">
+                    <p th:text="|${recipe.cookTime} minutes|">
+                        15 minutes
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Ingredients </label>
+                    </p>
+                </div>
+                <div class="grid-30">
+                    <p>
+                        <label> Item </label>
+                    </p>
+                </div>
+                <div class="grid-30">
+                    <p>
+                        <label> Quantity </label>
+                    </p>
+                </div>
+
+                <div class="ingredient-row" th:each="ingredient: ${recipe.ingredients}">
+                    <div class="prefix-20 grid-30">
+                        <p th:text="${ingredient.name}">
+                            Eggs
+                        </p>
+                    </div>
+                    <div class="grid-10 suffix-10">
+                        <p th:text="|${ingredient.quantity} ${ingredient.condition}|">
+                            2
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="grid-100 row">
+                <div class="grid-20">
+                    <p>
+                        <label> Steps </label>
+                    </p>
+                </div>
+
+                <div class="step-row">
+                    <div class="prefix-20 grid-80" th:each="step: ${recipe.instructions}">
+                        <p th:text="${step}">
+                            1. Crack your eggs and beat them.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="row">&nbsp;</div>
+
+        </div> <!-- recipesite -->
+    </div> <!-- grid-100 -->
+</div> <!-- grid-container -->
+</body>
+</html>

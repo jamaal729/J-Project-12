@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="template :: head('My Recipes')"></head>
+<body>
+
+<div th:replace="template :: navigation"></div>
+
+<div class="grid-container">
+
+    <div th:replace="template :: chef-logo"></div>
+
+    <div th:replace="template :: flash"></div>
+
+    <div class="grid-100">
+
+        <div class="recipes">
+            <div class="grid-100 row controls">
+                <div class="flush-right">
+                    <form action="/recipes/add">
+                        <button style="margin-right: 10px">+ Add Recipe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="grid-100 row controls">
+                <form action="/search" method="get" style="margin: -5px 0 75px">
+                    <div class="grid-25">
+                        <select name="category" id="category-select">
+                            <option value="">All Categories</option>
+                            <option th:each="category: ${categories}" th:value="${category}" th:text="${category.name}">
+                                ???
+                            </option>
+                        </select>
+                    </div>
+                    <div class="grid-35">
+                        <input placeholder="Search..." name="searchQuery" th:value="${search}"/>
+                    </div>
+                    <div class="grid-40">
+                        <p style="display:inline;">Search by:</p>
+                        <select name="method" id="method" style="width: 60%; margin-left: 10px;">
+                            <!--<option id="inactive" value="">Choose option ...</option>-->
+                            <option id="inactive" value="" selected="selected">Choose option ...</option>
+
+                            <option value="description">Description</option>
+                            <option value="ingredient">Ingredient</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+            <div th:each="recipe : ${allRecipes}">
+                <div class="grid-100 row addHover" style="border-radius: 0;">
+
+                    <div class="grid-70">
+                        <div style="display:inline;">
+                            <form th:replace="template :: favoritedHeart"></form>
+                        </div>
+                        <a th:href="@{|/recipes/${recipe.id}|}">
+                            <p th:text="${recipe.name}">
+                                Baked Alaskan Salmon with Asparagus
+                            </p>
+                        </a>
+                    </div>
+
+                    <div class="hoverBlock" th:if="${authenticated}">
+                        <div class="grid-30">
+                            <div class="flush-right">
+                                <p>
+                                    <a th:href="@{|/recipes/${recipe.id}/edit|}"> <img
+                                            th:src="@{/assets/images/edit.svg}" height="12px"/> Edit </a>
+                                <form th:action="@{|/recipes/${recipe.id}/delete|}" method="post">
+                                    <button type="submit"><img th:src="@{/assets/images/delete.svg}" height="12px"/>
+                                        Delete
+                                    </button>
+                                </form>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="row">&nbsp;</div>
+
+        </div> <!-- recipesite -->
+    </div> <!-- grid-100 -->
+</div> <!-- grid-container -->
+</body>
+</html>

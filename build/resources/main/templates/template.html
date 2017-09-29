@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:fragment="head(title)">
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <title th:text="${title}">Login | My Recipes</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" th:href="@{/assets/css/unsemantic-grid-responsive.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}"/>
+
+</head>
+<body>
+
+<nav th:fragment="navigation">
+    <a th:href="@{/profile}" th:text="${currentUser.username}">
+        Chandra S.
+    </a>
+    &bull;
+    <form th:action="@{/logout}" method="post" style="display: inline">
+        <button>Logout</button>
+    </form>
+</nav>
+
+<div th:fragment="chef-logo" class="grid-100">
+    <a th:href="@{/recipes}">
+        <h1>
+            <img th:src="@{/assets/images/chefbot.svg}" height="60px"/>
+            <br/>
+            My Recipes
+        </h1>
+    </a>
+</div>
+
+<div class="flash" th:if="${flash}" th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}"
+     th:fragment="flash">
+</div>
+<form th:fragment="favoritedHeart" th:action="@{|/recipes/${recipe.id}/favorite|}" method="post" style="display:inline">
+    <button type="submit" style="display: inline; background: white; padding: 0;">
+        <img th:src="${recipe.isFavorited(currentUser)} ? @{/assets/images/favorited.svg} : @{/assets/images/favorite.svg}"
+             style="height: 16px;"/>
+    </button>
+</form>
+</body>
+</html>

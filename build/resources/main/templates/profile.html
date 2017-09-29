@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="template::head(${user.username} + ' | My Recipes')"></head>
+
+<body>
+
+<nav th:replace="template :: navigation"></nav>
+
+<div class="grid-container">
+
+    <div th:replace="template :: chef-logo"></div>
+
+    <div class="grid-100">
+
+        <div class="recipes">
+
+            <div class="grid-100 row controls section">
+                <div class="grid-100">
+                    <h2 th:text="${user.username}"> Chandra S. </h2>
+                </div>
+            </div>
+        </div>
+        <div class="recipes">
+            <div class="grid-100 row controls">
+                <div class="grid-100">
+                    <h3> Submitted Recipes: </h3>
+                </div>
+            </div>
+            <div th:each="recipe : ${user.createdRecipes}">
+                <div class="grid-100 row addHover" style="border-radius: 0;">
+                    <a th:href="@{|/recipes/${recipe.id}|}">
+                        <div class="grid-70">
+                            <p th:text="${recipe.name}">
+                                Baked Alaskan Salmon with Asparagus
+                            </p>
+                        </div>
+                    </a>
+                    <div class="hoverBlock" th:if="${authenticated}">
+                        <div class="grid-30">
+                            <div class="flush-right">
+                                <p>
+                                    <a th:href="@{|/recipes/${recipe.id}/edit|}"> <img
+                                            th:src="@{/assets/images/edit.svg}" height="12px"/> Edit </a>
+                                <form th:action="@{|/recipes/${recipe.id}/delete|}" method="post">
+                                    <button type="submit"><img th:src="@{/assets/images/delete.svg}" height="12px"/>
+                                        Delete
+                                    </button>
+                                </form>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(user.createdRecipes)}">
+                <h2>No submitted Recipes</h2>
+            </div>
+        </div>
+        <div class="recipes">
+            <div class="grid-100 row controls">
+                <div class="grid-100">
+                    <h3> Favorited Recipes: </h3>
+                </div>
+            </div>
+            <div th:if="!${#lists.isEmpty(user.favoritedRecipes)}">
+                <div th:each="recipe : ${user.favoritedRecipes}">
+                    <div class="grid-100 row addHover" style="border-radius: 0;">
+                        <a th:href="@{|/recipes/${recipe.id}|}">
+                            <div class="grid-70">
+                                <p th:text="${recipe.name}">
+                                    Baked Alaskan Salmon with Asparagus
+                                </p>
+                            </div>
+                        </a>
+                        <div class="hoverBlock">
+                            <div class="grid-30">
+                                <div class="flush-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(user.favoritedRecipes)}">
+                <h2>No favorited Recipes</h2>
+            </div>
+        </div>
+    </div>
+</div> <!-- recipesite -->
+<!-- grid-100 --><!-- grid-container -->
+</body>
+</html>
